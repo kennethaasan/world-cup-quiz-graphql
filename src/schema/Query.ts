@@ -16,7 +16,7 @@ export const QueryResolvers = {
     users: (): Promise<IUser[] | void> => {
       return getUsers();
     },
-    user: (_: any, args: { user_id: string }): Promise<IUser | void> => {
+    user: (_: any, args: any): Promise<IUser | void> => {
       return getUser(parseInt(args.user_id, 10));
     },
   },
