@@ -1,0 +1,41 @@
+{
+  "name": "world-cup-quiz-graphql",
+  "version": "1.0.0",
+  "author": "Kenneth Aasan <kenaasa@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=production node dist/index.js",
+    "build": "rm -rf dist && tsc",
+    "nodemon": "nodemon",
+    "prettier:write": "prettier --write \"src/**/*.{ts,json}\"",
+    "prettier:check": "prettier --list-different \"src/**/*.{ts,json}\"",
+    "precommit": "yarn build && lint-staged",
+    "tslint": "tslint --project tsconfig.json --config tslint.json 'src/**/*.ts'",
+    "test": "yarn check && yarn prettier:check && yarn tslint",
+    "deploy": "./scripts/deploy.sh"
+  },
+  "dependencies": {
+    "agentkeepalive": "^3.4.1",
+    "apollo-server": "^2.0.0-beta.7",
+    "async-retry": "^1.2.1",
+    "dotenv": "^6.0.0",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
+    "node-fetch": "^2.1.2"
+  },
+  "devDependencies": {
+    "@types/async-retry": "^1.2.1",
+    "@types/dotenv": "^4.0.3",
+    "@types/express": "^4.16.0",
+    "@types/graphql": "^0.13.1",
+    "@types/node-fetch": "^2.1.1",
+    "@types/ws": "^5.1.2",
+    "nodemon": "^1.17.5",
+    "prettier": "^1.13.5",
+    "ts-node": "^6.1.1",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.9.1"
+  }
+}
