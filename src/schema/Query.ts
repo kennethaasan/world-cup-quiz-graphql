@@ -1,6 +1,5 @@
 import { gql } from 'apollo-server';
-import { getGoogleSheetsData } from '../google';
-import { getPoints } from '../utils';
+import { getUser, getUsers } from '../google';
 import { IUser, UserTypeDefs } from './User';
 
 export const QueryTypeDefs = gql`
@@ -8,58 +7,17 @@ export const QueryTypeDefs = gql`
 
   type Query {
     users: [User!]!
+    user(user_id: ID!): User
   }
 `;
 
 export const QueryResolvers = {
   Query: {
-    users: async (): Promise<IUser[] | void> => {
-      const googleSheetsData = await getGoogleSheetsData();
-
-      const [headers, blueprints, ...users] = googleSheetsData;
-
-      return users
-        .map(user => {
-          const [timestamp, email, name, ...rest] = user;
-
-          let points: number = 0;
-
-          const questions = rest.map((answer, index) => {
-            const question = headers[index + 3];
-            const blueprint = blueprints[index + 3];
-
-            const questionPoints = getPoints(question, answer, blueprint);
-
-            if (questionPoints) {
-              points = points + questionPoints;
-            }
-
-            return {
-              question,
-              answer,
-              blueprint: blueprint === '' ? undefined : blueprint,
-              points: questionPoints,
-            };
-          });
-
-          return {
-            timestamp,
-            email,
-            name,
-            points,
-            questions,
-          };
-        })
-        .sort((a, b) => {
-          if (a.points === b.points) {
-            return a.name.localeCompare(b.name);
-          } else if (a.points > b.points) {
-            return -1;
-          } else if (a.points < b.points) {
-            return 1;
-          }
-          return 0;
-        });
+    users: (): Promise<IUser[] | void> => {
+      return getUsers();
+    },
+    user: (_: any, args: { user_id: string }): Promise<IUser | void> => {
+      return getUser(parseInt(args.user_id, 10));
     },
   },
 };
