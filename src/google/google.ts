@@ -18,7 +18,7 @@ const fetchOptions = {
 
 const GOOGLE_API_KEY = getEnviromentVariable('GOOGLE_API_KEY');
 const GOOGLE_SHEETS_ID = '1ATa8bq1wIlezGCWT3ioStbZP6ANBBY7JCAe_AO5Cya0';
-const GOOGLE_SHEETS_RANGE = 'A1%3ABO23';
+const GOOGLE_SHEETS_RANGE = 'A1%3ABO34';
 
 async function getGoogleSheetsData(): Promise<string[][]> {
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEETS_ID}/values/${GOOGLE_SHEETS_RANGE}?key=${GOOGLE_API_KEY}`;
