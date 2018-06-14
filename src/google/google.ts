@@ -59,12 +59,12 @@ export async function getUsers() {
   const [headers, blueprints, ...users] = googleSheetsData;
 
   return users
-    .map((user, index) => {
+    .map((user, userId) => {
       const [timestamp, email, name, ...rest] = user;
 
       let points: number = 0;
 
-      const questions = rest.map(answer => {
+      const questions = rest.map((answer, index) => {
         const question = headers[index + 3];
         const blueprint = blueprints[index + 3];
 
@@ -83,7 +83,7 @@ export async function getUsers() {
       });
 
       return {
-        id: index + 1,
+        id: userId + 1,
         timestamp,
         email,
         name,
