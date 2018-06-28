@@ -46,7 +46,7 @@ export function getPoints(
 
   if (POINTS[question]) {
     const answers = answer.split(', ');
-    const blueprints = new Set(blueprint.split(', '));
+    const blueprints = new Set(blueprint.split('. '));
 
     answers.forEach(a => {
       if (blueprints.has(a)) {
